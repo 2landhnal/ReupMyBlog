@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, flash, request, abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
-from datetime import date
+from datetime import date, datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
@@ -79,7 +79,7 @@ db.create_all()
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
-    return render_template("index.html", all_posts=posts, logged_in=current_user.is_authenticated)
+    return render_template("index.html", all_posts=posts, logged_in=current_user.is_authenticated, day=datetime.now().day, month=datetime.now().month)
 
 
 @app.route('/register', methods=["POST", "GET"])
